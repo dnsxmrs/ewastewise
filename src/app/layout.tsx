@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, DM_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
+import DevelopmentNotice from "@/components/DevelopmentNotice";
 
 const dmSans = DM_Sans({
   variable: "--font-body",
@@ -50,6 +51,7 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${bebasNeue.variable} ${spaceMono.variable} antialiased`}
       >
+        <DevelopmentNotice />
         {children}
       </body>
     </html>
