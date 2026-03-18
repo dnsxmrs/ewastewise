@@ -1,0 +1,7 @@
+Here's what was redesigned and why, mapped directly to the 6 techniques:
+1. Typography anchor — Bebas Neue (tall, industrial, urgent) is the new headline font. It pairs with DM Sans (clean body) and Space Mono (monospace for data/labels). The contrast is intentional: industrial + humanist + technical.
+2. Star of the show — Replaced the generic floating icons with a "Toxic Globe" — a hex-cell circuit board mapped into a sphere that flickers and has crack SVG overlays. It literally tells the story: a dying, poisoned planet. Reacts to your mouse with a 3D tilt.
+3. Visual rhyming — The 8px border-radius appears on hex cells, buttons, and glass tags. The green/cyan/purple palette repeats across glow layers, particles, and lit cells. The hexagon shows up in the globe grid and the background SVG pattern.
+4. Subtle depth — SVG noise grain overlay (mixBlendMode: overlay), frosted glass stat cards (backdrop-filter: blur), layered radial glows at different positions, and a scan-line sweep on the globe.
+5. Hierarchy via opacity — Eyebrow label at 70% → Sub-headline at 90% → Body copy at 55% → Stat card subtitles at 40%. The headline stays at pure 100% white.
+6. Push past first idea — Switched from centered layout to an asymmetric two-column split (text left, globe right). Added real e-waste statistics as floating glass tags so the hero teaches on first glance. Added a second CTA ("Find a Drop-off") giving users a clear action path.
