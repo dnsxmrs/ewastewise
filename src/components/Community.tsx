@@ -4,7 +4,7 @@ import React from 'react'
 
 const Community: React.FC = () => {
   return (
-    <section id="community" className="relative py-24 bg-[#0A0F14] overflow-hidden">
+    <section id="community" className="relative h-screen snap-start flex items-center bg-[#0A0F14] overflow-hidden">
       <div className="max-w-7xl mx-auto px-8 relative z-10">
         <div className="flex flex-col gap-4 mb-16 items-center text-center">
           <p className="font-mono text-[11px] tracking-[0.2em] text-[#F59E0B] uppercase">

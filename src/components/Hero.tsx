@@ -199,12 +199,11 @@ const ToxicGlobe: React.FC<{ mouseX: number; mouseY: number }> = ({ mouseX, mous
 }
 
 // ── Floating e-waste tags — minimal, icon-less, typographic ──────────────────
-// TODO: Add real data
 const tags = [
-    { label: '53.6M tons/yr', sub: 'global e-waste', x: '8%', y: '20%', delay: 0 },
-    { label: '17.4%', sub: 'recycled only', x: '75%', y: '12%', delay: 0.3 },
-    { label: '70% toxic waste', sub: 'from electronics', x: '82%', y: '65%', delay: 0.6 },
-    { label: '1,000 yrs', sub: 'battery decay', x: '5%', y: '68%', delay: 0.9 },
+    { label: '537,000 tons/yr', sub: 'PH e-waste generated', x: '8%', y: '20%', delay: 0 },
+    { label: '4.7 kg / person', sub: 'annual per capita', x: '75%', y: '12%', delay: 0.3 },
+    { label: '< 5% recycled', sub: 'formally processed', x: '82%', y: '65%', delay: 0.6 },
+    { label: '70% toxic waste', sub: 'from electronics', x: '5%', y: '68%', delay: 0.9 },
 ]
 
 const FloatingTag: React.FC<{
@@ -345,7 +344,7 @@ const AnimatedHero: React.FC = () => {
         <>
             <section
                 id="home"
-                className="relative min-h-screen flex items-center overflow-hidden"
+                className="relative h-screen snap-start flex items-center overflow-hidden"
                 style={{ background: '#080C10', fontFamily: "var(--font-body)" }}
             >
                 {/* ── Depth layers ── */}

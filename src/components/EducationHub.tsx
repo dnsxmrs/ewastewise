@@ -4,7 +4,7 @@ import React from 'react'
 
 const EducationHub: React.FC = () => {
   return (
-    <section id="education" className="relative py-24 bg-[#080C10] overflow-hidden">
+    <section id="education" className="relative h-screen snap-start flex items-center bg-[#080C10] overflow-hidden">
       <div className="max-w-7xl mx-auto px-8 relative z-10">
         <div className="flex flex-col gap-4 mb-16">
           <p className="font-mono text-[11px] tracking-[0.2em] text-[#4ADE80] uppercase">

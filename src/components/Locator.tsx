@@ -4,7 +4,7 @@ import React from 'react'
 
 const Locator: React.FC = () => {
   return (
-    <section id="recycle" className="relative py-24 bg-[#080C10] overflow-hidden border-t border-white/5">
+    <section id="recycle" className="relative h-screen snap-start flex items-center bg-[#080C10] overflow-hidden border-t border-white/5">
       <div className="max-w-7xl mx-auto px-8 relative z-10">
         <div className="lg:flex lg:items-end lg:justify-between mb-16">
           <div className="flex flex-col gap-4 max-w-2xl">
@@ -25,7 +25,7 @@ const Locator: React.FC = () => {
         </div>
 
         {/* Placeholder Map Area */}
-        <div className="w-full h-[500px] border border-white/10 rounded-xl bg-white/5 flex items-center justify-center italic font-body text-white/20 opacity-40">
+        <div className="w-full h-[400px] border border-white/10 rounded-xl bg-white/5 flex items-center justify-center italic font-body text-white/20 opacity-40">
           Placeholder: Interactive Collection Point Map
         </div>
       </div>

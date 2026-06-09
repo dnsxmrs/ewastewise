@@ -29,7 +29,7 @@ const About: React.FC = () => {
     }
 
     return (
-        <section id="about" className="relative py-32 bg-[#080C10] overflow-hidden">
+        <section id="about" className="relative h-screen snap-start flex items-center bg-[#080C10] overflow-hidden">
             {/* ── Background Depth ── */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4ADE80] opacity-[0.03] blur-[120px] rounded-full -mr-64 -mt-32" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-500 opacity-[0.02] blur-[100px] rounded-full -ml-32 -mb-32" />
@@ -67,14 +67,15 @@ const About: React.FC = () => {
                                 E-WasteWise is the culmination of research focused on <span className="text-white font-medium italic">bridging the gap</span> between low student awareness and proper e-waste disposal techniques.
                             </p>
                             <p className="text-white/50 text-base leading-relaxed max-w-lg">
-                                Grounded in the <span className="text-[#4ADE80]/80 font-semibold tracking-wider font-tech text-xs border border-white/10 px-2 py-0.5 rounded-sm">UTAUT</span> framework, this platform addresses Personal, Behavioral, and Environmental factors to drive real-world impact.
+                                Grounded in the <span className="text-[#4ADE80]/80 font-semibold tracking-wider font-tech text-xs border border-white/10 px-2 py-0.5 rounded-sm">UTAUT</span> framework, this platform addresses Personal, Behavioral, Social, and Environmental factors to drive real-world impact.
                             </p>
                         </motion.div>
 
-                        <motion.div variants={itemVariants} className="grid grid-cols-3 gap-4 border-t border-white/5 pt-8">
+                        <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-white/5 pt-8">
                             {[
                                 { label: 'Personal', val: 'Awareness' },
                                 { label: 'Behavioral', val: 'Intention' },
+                                { label: 'Social', val: 'Influence' },
                                 { label: 'Environmental', val: 'Sustainability' }
                             ].map((stat, i) => (
                                 <div key={i} className="flex flex-col gap-1">
