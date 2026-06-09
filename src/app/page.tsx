@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import EducationHub from "@/components/EducationHub";
@@ -20,121 +19,68 @@ const SECTIONS = [
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [prevIndex, setPrevIndex] = useState(0)
-  const isAnimating = useRef(false)
-  const touchStart = useRef(0)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const handleScroll = (direction: 'next' | 'prev') => {
-    if (isAnimating.current) return
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
 
-    if (direction === 'next' && activeIndex < SECTIONS.length - 1) {
-      isAnimating.current = true
-      setPrevIndex(activeIndex)
-      setActiveIndex(prev => prev + 1)
-      setTimeout(() => {
-        isAnimating.current = false
-      }, 1000)
-    } else if (direction === 'prev' && activeIndex > 0) {
-      isAnimating.current = true
-      setPrevIndex(activeIndex)
-      setActiveIndex(prev => prev - 1)
-      setTimeout(() => {
-        isAnimating.current = false
-      }, 1000)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = SECTIONS.findIndex(sec => sec.id === entry.target.id)
+            if (index !== -1) {
+              setActiveIndex(index)
+            }
+          }
+        })
+      },
+      {
+        root: container,
+        threshold: 0.5 // Trigger when 50% of the section is visible
+      }
+    )
+
+    SECTIONS.forEach((sec) => {
+      const el = document.getElementById(sec.id)
+      if (el) observer.observe(el)
+    })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
-  useEffect(() => {
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault()
-      if (Math.abs(e.deltaY) < 15) return // Filter small scroll wheel movements/drifts
-      
-      if (e.deltaY > 0) {
-        handleScroll('next')
-      } else {
-        handleScroll('prev')
-      }
-    }
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        e.preventDefault()
-        handleScroll('next')
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        e.preventDefault()
-        handleScroll('prev')
-      }
-    }
-
-    const onTouchStart = (e: TouchEvent) => {
-      touchStart.current = e.touches[0].clientY
-    }
-
-    const onTouchEnd = (e: TouchEvent) => {
-      const touchEnd = e.changedTouches[0].clientY
-      const diff = touchStart.current - touchEnd
-      if (Math.abs(diff) > 50) { // Swipe threshold
-        if (diff > 0) {
-          handleScroll('next')
-        } else {
-          handleScroll('prev')
-        }
-      }
-    }
-
-    const container = document.getElementById('scroll-container')
-    if (container) {
-      container.addEventListener('wheel', onWheel, { passive: false })
-      window.addEventListener('keydown', onKeyDown, { passive: false })
-      container.addEventListener('touchstart', onTouchStart, { passive: true })
-      container.addEventListener('touchend', onTouchEnd, { passive: true })
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('wheel', onWheel)
-        window.removeEventListener('keydown', onKeyDown)
-        container.removeEventListener('touchstart', onTouchStart)
-        container.removeEventListener('touchend', onTouchEnd)
-      }
-    }
-  }, [activeIndex])
-
   return (
     <main
+      ref={containerRef}
       id="scroll-container"
-      className="relative w-full h-screen overflow-hidden bg-[#080C10] select-none"
+      className="w-full h-screen overflow-y-auto snap-y snap-mandatory bg-[#080C10] scroll-smooth"
     >
-      {SECTIONS.map((sec, idx) => {
+      <style>{`
+        #scroll-container::-webkit-scrollbar {
+          display: none;
+        }
+        #scroll-container {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
+      `}</style>
+
+      {SECTIONS.map((sec) => {
         const Comp = sec.component
-        const isActive = idx === activeIndex
-        
-        // Virtualization: Only render active, previous active (for transition), or adjacent sections
-        const isRendered = idx === activeIndex || idx === prevIndex || Math.abs(idx - activeIndex) <= 1
-
-        if (!isRendered) return null
-
         return (
-          <motion.div
-            key={sec.id}
-            className="absolute inset-0 w-full h-full transform-gpu will-change-transform"
-            style={{
-              pointerEvents: isActive ? 'auto' : 'none',
-              zIndex: isActive ? 10 : 0,
-            }}
-            initial={{ opacity: 0, scale: 0.98, y: 15 }}
-            animate={{
-              opacity: isActive ? 1 : 0,
-              scale: isActive ? 1 : 0.98,
-              y: isActive ? 0 : (idx > activeIndex ? 15 : -15),
-            }}
-            transition={{
-              duration: 0.9,
-              ease: [0.16, 1, 0.3, 1], // premium custom cubic-bezier
-            }}
-          >
+          <div key={sec.id} id={sec.id} className="w-full h-screen snap-start snap-always">
             <Comp />
-          </motion.div>
+          </div>
         )
       })}
 
@@ -143,12 +89,8 @@ export default function Home() {
         {SECTIONS.map((sec, idx) => (
           <button
             key={sec.id}
-            onClick={() => {
-              if (idx === activeIndex) return
-              setPrevIndex(activeIndex)
-              setActiveIndex(idx)
-            }}
-            className="group relative flex items-center justify-center p-2"
+            onClick={() => scrollToSection(sec.id)}
+            className="group relative flex items-center justify-center p-2 cursor-pointer"
             aria-label={`Go to section ${sec.id}`}
           >
             <div
