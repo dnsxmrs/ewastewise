@@ -314,7 +314,7 @@ const About: React.FC = () => {
                             </div>
 
                             {/* Details Box below SVG (Stacked layout, no absolute overlay clashing) */}
-                            <div className="border-t border-white/10 p-5 min-h-[145px] bg-white/[0.01] relative flex flex-col justify-center">
+                            <div className="border-t border-white/10 p-5 min-h-[145px] bg-white/1 relative flex flex-col justify-center">
                                 <AnimatePresence mode="wait">
                                     {hovered ? (
                                         <motion.div
